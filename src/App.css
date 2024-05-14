@@ -158,8 +158,8 @@
       padding: 1rem;
 
       &:disabled {
-        background-color: #f1f1f1;
-        color: #b1b1b1;
+        background-color: red;
+        color: white;
       }
     }
   }
