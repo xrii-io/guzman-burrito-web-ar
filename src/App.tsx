@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import {
   bootstrapCameraKit,
-  Transform2D,
   createMediaStreamSource,
   CameraKit,
   CameraKitSession,
@@ -16,7 +15,7 @@ import { Loading } from "./components/Loading";
 
 import "./App.css";
 
-const LENS_GROUP_ID = "0f91ab70-a2c8-4468-b711-edf28f8dc044";
+const LENS_GROUP_ID = "a7c8c7c6-0bf7-4c34-944a-e1d60b448d07";
 
 const apiService: RemoteApiService = {
   apiSpecId: "af9a7f93-3a8d-4cf4-85d2-4dcdb8789b3d",
@@ -54,7 +53,6 @@ export const App = () => {
     }
 
     let permSatus = "prompt";
-    console.log("isMobile", isMobile);
 
     if (!isMobile) {
       await sessionRef.current.applyLens(lensesRef.current[0]);
@@ -76,7 +74,6 @@ export const App = () => {
       //@ts-ignore
       permSatus = await window.DeviceMotionEvent.requestPermission();
       if (permSatus === "granted") {
-        console.log("DeviceMotion permission granted");
         await sessionRef.current.applyLens(lensesRef.current[0]);
         setStarted(true);
       } else {
@@ -100,7 +97,7 @@ export const App = () => {
         {
           logger: "console",
           apiToken:
-            "eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzA4NTQ0MTU3LCJzdWIiOiI3YjQwZWM4Ny1hNTk3LTQ0OTMtYjAyZi04YTFkOWVlYTNjZTN-U1RBR0lOR340ZGE0ZmUwYi05OTNmLTRkOGYtYjNiNC0yNjg3NjM2NjkxMzgifQ.BfK9vetSFkfUkL5_ueLB7xJv3S60SRfwIuISh_5F0V8",
+            "eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzE1NzE2NzkxLCJzdWIiOiI1YzZmZTc2Ni1hMGVlLTRhYWYtYjIzOC1kMWUwNDA5MmU2YjB-U1RBR0lOR341YzQ2NDQwOC1hMjY1LTQ2NzItOWZiMS0wNGNjYTA4YjAwMDQifQ.k4QMxwx9I6uvoZWxdiIPr-3RLDqL1983krnoiQ2Aag8",
         },
         (container) => container.provides(apiServiceInjectable)
       );
@@ -121,7 +118,7 @@ export const App = () => {
         console.error(event.detail)
       );
       const devices = await navigator.mediaDevices.enumerateDevices();
-      console.log("device", devices);
+
       const backCamera = devices.find(
         (device) =>
           device.kind === "videoinput" &&

@@ -34,7 +34,7 @@ export const Loading = ({ onStartButtonClick, camKitLoaded }: Props) => {
         <br />
         <p>If you win the AR game, you'll win:</p>
         <article>
-          <img src="ar.png" />
+          <img src="tickets.png" />
           FREE Game-Day Ticket
         </article>
 
