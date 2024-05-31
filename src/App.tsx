@@ -12,7 +12,7 @@ import {
   Lens,
 } from "@snap/camera-kit";
 import { Loading } from "./components/Loading";
-
+import { requestMotionPermission, requestCameraPermission } from "./utils";
 import "./App.css";
 
 const LENS_GROUP_ID = "a7c8c7c6-0bf7-4c34-944a-e1d60b448d07";
@@ -40,6 +40,8 @@ export const App = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sessionRef = useRef<CameraKitSession>();
   const lensesRef = useRef<Lens[]>();
+  const [motionPermissionGranted, setMotionPermission] = useState(false);
+  const [cameraPermissionGranted, setCameraPermission] = useState(false);
 
   const mediaStreamRef = useRef<MediaStream>();
 
@@ -83,6 +85,46 @@ export const App = () => {
       console.error(e);
     }
   }
+
+  /**
+   * Determine how to handle permissions based on the platform
+   * window.xrii is a namespace used to communicate with the RN app
+   */
+  useEffect(() => {
+    // handle react native permissions
+    //@ts-ignore
+
+    //@ts-ignore
+    if (!window.xrii) window.xrii = {};
+    //@ts-ignore
+    window.xrii.setPermissions = (perm: {
+      camera: boolean;
+      sensor: boolean;
+    }) => {
+      if (perm.sensor) {
+        console.log("RN sensor permission granted");
+        requestMotionPermission().then((status) => {
+          console.log(
+            "motion permission status after RN injected function call",
+            status
+          );
+
+          setMotionPermission(status);
+          /**
+           * Try to pass in the camera permission from the RN app
+           * Camera kit may ask anyway
+           * */
+          requestCameraPermission().then((cameraStatus) => {
+            console.log(
+              "camera permission status after RN injected function call",
+              cameraStatus
+            );
+            setCameraPermission(cameraStatus);
+          });
+        });
+      }
+    };
+  }, []);
 
   useEffect(() => {
     async function initCameraKit() {
