@@ -12,27 +12,21 @@ export const Loading = ({ onStartButtonClick, camKitLoaded }: Props) => {
           <li>
             <span>1</span>
             <img src="magnifying-glass.png" />
-            <p>Find a flat surface & enable motion permissions</p>
+            <p>Find a flat surface & enable permissions</p>
           </li>
-
           <li>
             <span>2</span>
-            <img src="camera.png" />
-            <p>Aim your phone camera at the hoop</p>
+            <img src="power.png" />
+            <p>Aim and shoot using the power bar</p>
           </li>
           <li>
             <span>3</span>
-            <img src="power.png" />
-            <p>Use the power bar to shoot</p>
-          </li>
-          <li>
-            <span>4</span>
             <img src="repeat.png" />
             <p>Score and repeat</p>
           </li>
         </ol>
         <br />
-        <p>If you win the AR game, you'll win:</p>
+        <p>If you win the game, you'll win:</p>
         <article>
           <img src="tickets.png" />
           FREE Game-Day Ticket
